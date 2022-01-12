@@ -8,6 +8,7 @@ from hard import is_unlocked
 def test_empty():
     assert is_unlocked([], "COMP1511") == True
     assert is_unlocked([], "COMP9301") == False
+    assert is_unlocked(["COMP1911", "MTRN2500", "MTRN2500", "MTRN2501", "MTRN2503", "MTRN2506"], "COMP4951") == True
 
 def test_single():
     assert is_unlocked(["MATH1081"], "COMP3153") == True
@@ -15,6 +16,7 @@ def test_single():
     assert is_unlocked(["COMP1511", "COMP1521", "COMP1531"], "COMP3153") == False
 
 def test_compound():
+    assert is_unlocked(["COMP1531", "COMP2521"], "COMP2511") == True
     assert is_unlocked(["MATH1081", "COMP1921"], "COMP2111") == True
     assert is_unlocked(["COMP1521", "COMP2521"], "COMP3151") == True
     assert is_unlocked(["COMP1917", "DPST1092"], "COMP3151") == False
@@ -36,6 +38,10 @@ def test_cross_discipline():
     assert is_unlocked(["COMP1911", "MTRN2500"], "COMP2121") == True
     assert is_unlocked(["COMP1521"], "COMP2121") == True
     
+    
 test_empty()
 test_single()
 test_compound()
+test_simple_uoc()
+test_annoying_uoc()
+test_cross_discipline()
