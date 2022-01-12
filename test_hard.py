@@ -8,7 +8,7 @@ from hard import is_unlocked
 def test_empty():
     assert is_unlocked([], "COMP1511") == True
     assert is_unlocked([], "COMP9301") == False
-    assert is_unlocked(["COMP6841", "COMP6444", "COMP6843"], "COMP9302") == True
+    assert is_unlocked(["COMP6841", "COMP6445", "COMP6443"], "COMP9302") == True
     assert is_unlocked(["COMP1911", "MTRN2500", "MTRN2500", "MTRN2501", "MTRN2503", "MTRN2506"], "COMP4951") == True
 
 def test_single():

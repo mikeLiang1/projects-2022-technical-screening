@@ -218,7 +218,7 @@ def is_unlocked(courses_list, target_course):
     elif target_course == "COMP9301":
         unit = 0
         for course in course_set:
-            if "COMP6443" in course_set or "COMP6843" in course_set or "COMP6445" in course_set or "COMP6845" in course_set or "COMP6447" in course_set:
+            if course == "COMP6443" or course == "COMP6843" or course == "COMP6445" or course == "COMP6845" or course == "6447":
                 unit += 6
             
             if unit == 12:
@@ -230,10 +230,9 @@ def is_unlocked(courses_list, target_course):
         if "COMP6441" in course_set or "COMP6841" in course_set:
             unit = 0
             for course in course_set:
-                print (course)
-                if "COMP6443" in course_set or "COMP6843" in course_set or "COMP6445" in course_set or "COMP6845" in course_set or "COMP6447" in course_set:
+                if course == "COMP6443" or course == "COMP6843" or course == "COMP6445" or course == "COMP6845" or course == "6447":
                     unit += 6
-                    print (unit)
+                
                 
                 if unit == 12:
                     return True
@@ -258,7 +257,7 @@ def is_unlocked(courses_list, target_course):
         
         unit = 0
         for course in course_set:
-            if "COMP9417" in course_set or "COMP9418" in course_set or "COMP9444" in course_set or "COMP9447" in course_set:
+            if course == "COMP9417" or course == "COMP9418" or course == "COMP9444" or course == "COMP9447":
                 unit += 6
             
             if unit == 18:
