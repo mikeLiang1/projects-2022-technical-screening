@@ -34,9 +34,43 @@ def is_unlocked(courses_list, target_course):
     """
     
     # TODO: COMPLETE THIS FUNCTION!!!
-    
-    return True
 
+    # each course is 6 units
+    units = len(courses_list) * 6
+    course_set = set()
+    for course in courses_list:
+        course_set.add(course)
+        
+    
+    if target_course == "COMP1511":
+        return True
+    
+    # 12 units in (COMP6843, COMP6445, COMP6845, COMP6447)"
+    elif target_course == "COMP9301":
+        unit = 0
+        for course in course_set:
+            if course == "COMP6443" or course == "COMP6445" or course == "COMP6845" or course == "COMP6447":
+                unit += 6
+            if unit == 12:
+                return True
+            
+        
+    
+    elif target_course == "COMP3153":
+        if "MATH1081" in course_set:
+            return True
+        
+    
+    elif target_course == "COMP3211":
+        if "COMP3222" in course_set or "ELEC2141" in course_set:
+            return True
+       
+    # "MATH1081 AND    (COMP1511 OR DPST1091 OR COMP1917 OR COMP1921)", 
+    elif target_course == "COMP2111":
+        if "MATH1081" in course_set and ("COMP1511" in course_set or "DPST1091" in course_set or "COMP1917" in course_set or "COMP1921" in course_set):
+            return True
+    
+    return False
 
 
 
