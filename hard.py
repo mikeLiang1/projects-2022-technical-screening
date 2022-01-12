@@ -17,6 +17,7 @@ A good solution is favourable but does not guarantee a spot in Projects because
 we will also consider many other criteria.
 """
 import json
+import re
 
 # NOTE: DO NOT EDIT conditions.json
 with open("./conditions.json") as f:
@@ -129,27 +130,48 @@ def is_unlocked(courses_list, target_course):
         if "COMP1531" in course_set and ("COMP2521" in course_set or "COMP1927" in course_set) and units >= 102:
             return True
        
-    # TODO 
     #"COMP3901": "Prerequisite: 12 units of credit in  level 1 COMP courses and 18 units of credit in level 2 COMP courses",
     elif target_course == "COMP3901":
-        if "COMP3121" in course_set or "COMP3821" in course_set:
-            return True
+        unit1 = 0
+        unit2 = 0
+        for course in course_set:
+            # regex match to find comp1 courses
+            if bool(re.search("COMP1", course)) == True:
+                unit1 += 6
+            if bool(re.search("COMP2", course)) == True:
+                unit2 += 6
+            # if more than 12 in unit comp1 and 18 in comp2
+            if unit1 >= 12 and unit2 >= 18:
+                return True
      
-    # TODO   
+    
     # "COMP3902": "Prerequisite: COMP3901 and 12 units of credit in level 3 COMP courses",
     elif target_course == "COMP3902":
-        if "COMP3121" in course_set or "COMP3821" in course_set:
-            return True
+        if "COMP3901" in course_set:
+            unit = 0
+            for course in course_set:
+                # regex match to find comp3 courses
+                if bool(re.search("COMP3", course)) == True:
+                    unit += 6
+                
+                if unit == 12:
+                    return True
+            
     
     # "COMP4121": "COMP3121 or   COMP3821",
     elif target_course == "COMP4121":
         if "COMP3121" in course_set or "COMP3821" in course_set:
             return True
     
-    # TODO
     #"COMP4128": "Prerequisite: COMP3821 or (COMP3121 and 12 units of credit in level 3 COMP courses)",
     elif target_course == "COMP4121":
-        if "COMP3121" in course_set or "COMP3821" in course_set:
+        unit = 0
+        for course in course_set:
+            # regex match to find comp3 courses
+            if bool(re.search("COMP3", course)) == True:
+                unit += 6
+        
+        if ("COMP3121" in course_set and unit >= 12) or "COMP3821":
             return True
         
     #"COMP4141": "Pre-requisite: MATH1081 and (COMP1927 or COMP2521)",
@@ -192,17 +214,29 @@ def is_unlocked(courses_list, target_course):
         if "COMP4952" in course_set:
             return True
     
-    #TODO
     # "COMP9301": "12 units of credit in (COMP6443,  COMP6843, COMP6445, COMP6845, COMP6447)",
     elif target_course == "COMP9301":
-        if "COMP4952" in course_set:
-            return True
+        unit = 0
+        for course in course_set:
+            if "COMP6443" in course_set or "COMP6843" in course_set or "COMP6445" in course_set or "COMP6845" in course_set or "COMP6447" in course_set:
+                unit += 6
+            
+            if unit == 12:
+                return True
+                
     
-    #TODO 
     #"COMP9302": "(COMP6441 OR COMP6841) AND 12 units of credit in (COMP6443, COMP6843, COMP6445, COMP6845, COMP6447)",
     elif target_course == "COMP9302":
-        if "COMP4952" in course_set:
-            return True
+        if "COMP6441" in course_set or "COMP6841" in course_set:
+            unit = 0
+            for course in course_set:
+                print (course)
+                if "COMP6443" in course_set or "COMP6843" in course_set or "COMP6445" in course_set or "COMP6845" in course_set or "COMP6447" in course_set:
+                    unit += 6
+                    print (unit)
+                
+                if unit == 12:
+                    return True
     
     # "COMP9417": "MATH1081 and ((COMP1531 or COMP2041) or (COMP1927 or COMP2521))",
     elif target_course == "COMP9417":
@@ -223,21 +257,12 @@ def is_unlocked(courses_list, target_course):
     elif target_course == "COMP9491":
         
         unit = 0
-        if "COMP9417" in course_set:
-            unit += 6
+        for course in course_set:
+            if "COMP9417" in course_set or "COMP9418" in course_set or "COMP9444" in course_set or "COMP9447" in course_set:
+                unit += 6
             
-        if "COMP9418" in course_set:
-            unit += 6
-            
-        if "COMP9444" in course_set:
-            unit += 6
-            
-        if "COMP9447" in course_set:
-            unit += 6
-
-        if unit >= 18:
-            return True
-    
+            if unit == 18:
+                return True
     
     return False
 
